@@ -5,12 +5,12 @@ import torch.nn.functional as F
 import streamlit as st
 from PIL import Image
 import torchvision.transforms as transforms
-from lenet_digit_recognition import LenetClassifier1
+from lenet_digit_recognition import LeNetClassifier1
 
 @st.cache_resource
 def load_model(model_path, num_classes, architecture):
     if architecture == 'LeNet1':
-        model = LenetClassifier1(num_classes=num_classes)
+        model = LeNetClassifier1(num_classes=num_classes)
     else:
         raise ValueError("Unsupported architecture. Only 'LeNet' is supported.")
 
