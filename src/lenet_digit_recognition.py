@@ -47,9 +47,9 @@ BATCH_SIZE = 64
 train_dataloader = data.DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=True)
 valid_dataloader = data.DataLoader(valid_data, batch_size=BATCH_SIZE, shuffle=False)
 
-class LeNetClassifier(nn.Module):
+class LeNetClassifier1(nn.Module):
     def __init__(self, num_classes):
-        super(LeNetClassifier, self).__init__()
+        super(LeNetClassifier1, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=6, kernel_size=5, padding='same')
         self.avgpool1 = nn.AvgPool2d(kernel_size=2)
         self.conv2 = nn.Conv2d(in_channels=6, out_channels=16, kernel_size=5)
@@ -80,7 +80,7 @@ def main():
     
     num_classes = len(train_data.dataset.classes)
     
-    lenet_model = LeNetClassifier(num_classes=num_classes).to(device)
+    lenet_model = LeNetClassifier1(num_classes=num_classes).to(device)
     optimizer = optim.Adam(lenet_model.parameters(), lr=0.001)
     criterion = nn.CrossEntropyLoss()
     
