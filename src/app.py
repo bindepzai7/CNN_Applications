@@ -13,6 +13,8 @@ from lenet_digit_recognition import LeNetClassifier1, LeNetClassifier2
 def load_model(model_path, num_classes, architecture):
     if architecture == 'LeNet1':
         model = LeNetClassifier1(num_classes=num_classes)
+    elif architecture == 'LeNet2':
+        model = LeNetClassifier2(num_classes=num_classes)
     else:
         raise ValueError("Unsupported architecture. Only 'LeNet' is supported.")
 
@@ -20,7 +22,6 @@ def load_model(model_path, num_classes, architecture):
     model.eval()
     return model    
 
-model = load_model('model/model1.pt', num_classes=10, architecture='LeNet1')
 
 def inference(image, model):
     w, h = image.size
@@ -43,6 +44,7 @@ def inference(image, model):
     return p_max.item()*100, yhat.item()
 
 def run_digit_recognition():
+    model = load_model('model/model1.pt', num_classes=10, architecture='LeNet1')
     st.title('Digit Recognition')
     st.subheader('Model: LeNet | Dataset: MNIST')
 
@@ -63,6 +65,7 @@ def run_digit_recognition():
         st.success(f"The image is of the digit {label} with {p:.2f} % probability.")
         
 def cassava_inference(image, model):
+    model = load_model('model/model2.pt', num_classes=10, architecture='LeNet2')
     img_transform = transforms.Compose([
         transforms.Resize((150, 150)),
         transforms.ToTensor(),
