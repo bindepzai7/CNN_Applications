@@ -32,7 +32,8 @@ In this task, I address a real-world agricultural problem: identifying diseases 
 
 🗂 The dataset is split into training, validation, and testing subsets, and the model's performance is tracked across epochs.
 
-📊 Accuracy and loss plots for both tasks are available in the app, along with downloadable results.
+📈 Below is a plot of training and validation performance after 30 epochs:  
+![Digit Recognition](Plots/CassavaLeafDisease.png)
 
 ---
 
