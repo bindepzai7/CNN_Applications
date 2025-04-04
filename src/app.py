@@ -10,8 +10,7 @@ from lenet_leaf_disease import LeNetClassifier2
 from textCNN import TextCNN
 from torchtext.data.utils import get_tokenizer
 from torch.nn.utils.rnn import pad_sequence
-import pickle
-from torchtext.vocab import build_vocab_from_iterator, Vocab
+from torchtext.vocab import Vocab
 from task3_preprocess import preprocess_text
 
 # ----------------------------------------
@@ -24,8 +23,7 @@ st.set_page_config(page_title="CNN Applications", layout="wide")
 # ----------------------------------------
 @st.cache_resource
 def load_vocab(vocab_path):
-    with open(vocab_path, "rb") as f:
-        return pickle.load(f)
+    return torch.load(vocab_path, map_location=torch.device('cpu'))
 
 @st.cache_resource
 def load_model(model_path, num_classes, architecture):
@@ -48,7 +46,9 @@ def load_model(model_path, num_classes, architecture):
     model.eval()
     return model
 
-
+# ----------------------------------------
+# 🔢 Digit Recognition
+# ----------------------------------------
 def inference_digit(image, model):
     if image.size[0] != image.size[1]:
         image = transforms.CenterCrop(min(image.size))(image)
@@ -84,6 +84,9 @@ def run_digit_recognition():
         st.image(image)
         st.success(f"Example Digit: **{label}** | Confidence: **{p:.2f}%**")
 
+# ----------------------------------------
+# 🌿 Cassava Leaf Disease Classification
+# ----------------------------------------
 def cassava_inference(image, model):
     transform = transforms.Compose([
         transforms.Resize((150, 150)),
@@ -126,47 +129,17 @@ def run_cassava_leaf_disease():
         st.success(f"Predicted: **{cassava_classes[label]}** | Confidence: **{p:.2f}%**")
 
 
-tokenizer = get_tokenizer("basic_english")
-idx2label = {0: 'negative', 1:'positive'}
-
-with open('./model/vocabulary.pth', 'rb') as f:
-    vocabulary = pickle.load(f)
-def sentiment_inference(sentence, vocabulary, model):
-    sentence = preprocess_text(sentence)
-    encoded_sentence = vocabulary(tokenizer(sentence))
-    encoded_sentence = torch.tensor(encoded_sentence)
-    encoded_sentence = torch.unsqueeze(encoded_sentence, 1)
-
-    with torch.no_grad():
-        predictions = model(encoded_sentence)
-    preds = nn.Softmax(dim=1)(predictions)
-    p_max, yhat = torch.max(preds.data, 1)
-    return round(p_max.item(), 2)*100, yhat.item()
-
-
-def run_sentiment_analysis():
-    model = load_model("model/model3.pt", num_classes=2, architecture='TextCNN')
-    st.title('Sentiment Analysis')
-    st.title('Model: Text CNN. Dataset: NTC-SCV')
-    text_input = st.text_input("Sentence: ", "Đồ ăn ở quán này quá tệ luôn!")
-    p, idx = sentiment_inference(text_input, vocabulary, model)
-    label = idx2label[idx]
-    st.success(f'Sentiment: {label} with {p:.2f} % probability.') 
-
-
-# ----------------------------------------
-# 🚀 Main Entry Point
-# ----------------------------------------
 def main():
     st.sidebar.title("🧠 Choose a Task")
-    task = st.sidebar.radio("Select Task", ["Digit Recognition", "Cassava Leaf Disease", "Sentiment Analysis"])
+    task = st.sidebar.radio("Select Task", ["Digit Recognition", "Cassava Leaf Disease", "Other Tasks"])
     
     if task == "Digit Recognition":
         run_digit_recognition()
     elif task == "Cassava Leaf Disease":
         run_cassava_leaf_disease()
-    elif task == "Sentiment Analysis":
-        run_sentiment_analysis()
+    elif task == "Other Tasks":
+        #comming soon
+        st.write("Other tasks are coming soon!")
 
 if __name__ == "__main__":
     main()

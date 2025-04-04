@@ -1,9 +1,7 @@
 streamlit==1.34.0
 streamlit-option-menu==0.3.6
-torch==2.2.1+cpu
-torchvision==0.17.1+cpu
-torchtext==0.17.1
+torch==2.2.1
+torchvision
 matplotlib
 torchsummary
-Pillow
-langid
+torchtext
