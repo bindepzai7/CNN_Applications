@@ -16,7 +16,7 @@ In this task, I implemented the **LeNet** architecture to classify handwritten d
 - **Number of Epochs**: 20  
 
 📈 Below is a plot of training and validation performance after 20 epochs:  
-![Digit Recognition](Plots/Digit Recognition.png)
+![Digit Recognition](Plots/DigitRecognition.png)
 
 ---
 
@@ -32,7 +32,8 @@ In this task, I address a real-world agricultural problem: identifying diseases 
 
 🗂 The dataset is split into training, validation, and testing subsets, and the model's performance is tracked across epochs.
 
-📊 Accuracy and loss plots for both tasks are available in the app, along with downloadable results.
+📈 Below is a plot of training and validation performance after 30 epochs:  
+![Digit Recognition](Plots/CassavaLeafDisease.png)
 
 ---
 
