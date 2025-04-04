@@ -61,12 +61,32 @@ def run_digit_recognition():
         p, label = inference(image, model)
         st.image(image)
         st.success(f"The image is of the digit {label} with {p:.2f} % probability.")
+        
+def run_cassava_leaf_disease():
+    st.title('Cassava Leaf Disease Classification')
+    st.subheader('Model: LeNet | Dataset: Cassava Leaf Disease')
+
+    option = st.selectbox('How would you like to give the input?', ('Upload Image File', 'Run Example Image'))
+
+    if option == "Upload Image File":
+        file = st.file_uploader("Please upload an image of a cassava leaf", type=["jpg", "png"])
+        if file is not None:
+            image = Image.open(file)
+            p, label = inference(image, model)
+            st.image(image)
+            st.success(f"The uploaded image is of the cassava leaf with {p:.2f} % probability.") 
+
+    elif option == "Run Example Image":
+        image = Image.open('data/Demo/demo_cbb.jpg')
+        p, label = inference(image, model)
+        st.image(image)
+        st.success(f"The image is of the cassava leaf with {p:.2f} % probability.")
 
 
 def main():
 
     st.sidebar.title("Choose a Task")
-    task = st.sidebar.radio("Select a task:", ["Digit Recognition", "Cassava Leaf Disease", "Other Task"])
+    task = st.sidebar.radio("Select a task:", ["Digit Recognition", "Cassava Leaf Disease", "Sentiment Analysis", "Other Task"])
     
     if task == "Digit Recognition":
         run_digit_recognition()
