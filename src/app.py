@@ -17,11 +17,16 @@ def load_model(model_path, num_classes, architecture):
     elif architecture == 'LeNet2':
         model = LeNetClassifier2(num_classes=num_classes)
     else:
-        raise ValueError("Unsupported architecture. Only 'LeNet' is supported.")
-
-    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+        raise ValueError("Unsupported architecture.")
+    
+    try:
+        model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
+    except RuntimeError as e:
+        st.error("Model loading failed due to mismatched architecture or class count.")
+        st.stop()
+    
     model.eval()
-    return model    
+    return model  
 
 
 def inference(image, model):
@@ -66,7 +71,7 @@ def run_digit_recognition():
         st.success(f"The image is of the digit {label} with {p:.2f} % probability.")
         
 def cassava_inference(image, model):
-    model = load_model('model/model2.pt', num_classes=10, architecture='LeNet2')
+    model = load_model('model/model2.pt', num_classes=5, architecture='LeNet2')
     img_transform = transforms.Compose([
         transforms.Resize((150, 150)),
         transforms.ToTensor(),
