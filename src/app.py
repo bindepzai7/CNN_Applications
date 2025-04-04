@@ -90,6 +90,8 @@ def main():
     
     if task == "Digit Recognition":
         run_digit_recognition()
+    elif task == "Cassava Leaf Disease":
+        run_cassava_leaf_disease()
     elif task == "Other Task":
         st.info("Coming soon!")
 
