@@ -125,7 +125,28 @@ def main():
     save_results(train_accs, train_losses, eval_accs, eval_losses, file_name)
     print("Best model loaded.")
     
+def test():
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f'Using device: {device}')
+    
+    lenet_model = LeNetClassifier1(num_classes=10).to(device)
+    lenet_model.load_state_dict(torch.load(os.path.join('./model', 'model1.pt')))
+    
+    test_transform = transforms.Compose([
+        transforms.ToTensor(),
+        transforms.Normalize(mean, std),
+    ])
+    
+    test_data.transform = test_transform
+    test_dataloader = data.DataLoader(test_data, batch_size=BATCH_SIZE, shuffle=False)
+    
+    test_acc, test_loss = evaluate(lenet_model, nn.CrossEntropyLoss(), test_dataloader, device)
+    
+    print(f"Test Accuracy: {test_acc:.4f}")
+    print(f"Test Loss: {test_loss:.4f}")
+    
 if __name__ == "__main__":
-    main()
+    #test the model
+    test()
         
     

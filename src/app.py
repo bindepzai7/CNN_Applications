@@ -40,10 +40,12 @@ def inference(image, model):
     p_max, yhat = torch.max(preds.data, 1)
     return p_max.item()*100, yhat.item()
 
-def main():
+def run_digit_recognition():
     st.title('Digit Recognition')
-    st.subheader('Model: LeNet. Dataset: MNIST')
+    st.subheader('Model: LeNet | Dataset: MNIST')
+
     option = st.selectbox('How would you like to give the input?', ('Upload Image File', 'Run Example Image'))
+
     if option == "Upload Image File":
         file = st.file_uploader("Please upload an image of a digit", type=["jpg", "png"])
         if file is not None:
@@ -56,7 +58,19 @@ def main():
         image = Image.open('data/Demo/demo_8.png')
         p, label = inference(image, model)
         st.image(image)
-        st.success(f"The image is of the digit {label} with {p:.2f} % probability.") 
+        st.success(f"The image is of the digit {label} with {p:.2f} % probability.")
+
+
+def main():
+    st.set_page_config(page_title="CNN Applications", layout="wide")
+
+    st.sidebar.title("Choose a Task")
+    task = st.sidebar.radio("Select a task:", ["Digit Recognition", "Cassava Leaf Disease", "Other Task"])
+    
+    if task == "Digit Recognition":
+        run_digit_recognition()
+    elif task == "Other Task":
+        st.info("Coming soon!")
 
 if __name__ == '__main__':
     main() 
