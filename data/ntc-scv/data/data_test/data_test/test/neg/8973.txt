@@ -1,0 +1,7 @@
+Tối nay e có đi ăn_ở quán này .
+Ban_đầu thấy trên food để giá 5k
+Cũng tìm đi ăn thử .
+Chọn 2 xiên heo . 2 ba_chỉ . 2 bò nắm . 1 lá_lốt . 2 ly trà sữa .
+Tính tiền 98k .
+Cần lời giải_thích . . nếu_như mỗi xiên 5k khi tính ra chỉ 63k .
+Vậy trong bill mỗi thứ 10k .

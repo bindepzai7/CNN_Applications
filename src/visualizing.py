@@ -3,7 +3,7 @@ import numpy as np
 import seaborn as sns
 import json
 
-file_name = 'results/Digit Recognition/result.json'
+file_name = 'results/Sentiment Analysis/result.json'
 
 train_losses = []
 train_accs = []
@@ -39,5 +39,5 @@ plt.ylabel('Accuracy')
 plt.legend()
 plt.grid(True)
 plt.ylim(0, 1)
-plt.savefig('Plots/Digit Recognition.png')
+plt.savefig('Plots/SentimentAnalysis.png')
 plt.show()

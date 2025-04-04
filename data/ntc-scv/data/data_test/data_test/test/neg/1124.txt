@@ -1,0 +1,6 @@
+1 . Đồ đạt xếp luộm_thuộm chỗ có chỗ không
+2 . Thiếu_thốn đủ thứ
+3 . Giá cao hơn 1 số nhà_sách khác
+4 . Nhân_viên ko thân_thiện
+5 . Bảo_vệ nói_chuyện hách_dịch
+KHÔNG_BAO_GIỜ_QUAY_LẠI .

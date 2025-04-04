@@ -1,0 +1,1 @@
+Gọi cách chừng chỉ 10 căn nhà mà kêu đợi với lý_do không có người giao . Hơn 1 tiếng sau cũng không thấy giao , từ_chối phục_vụ , nên thôi từ_bỏ đơn hàng .

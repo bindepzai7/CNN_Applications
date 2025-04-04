@@ -1,0 +1,1 @@
+Giá trong menu ghi 1 đằng ra bill tính tiền 1 nẻo . Menu ghi giá món là 48.000 VNĐ , tính tiền thì 130.000 VNĐ , chênh_lệch 280% . Khách ý_kiến thì chống_chế nói giá thực_phẩm tăng , nếu giá tăng thì sửa menu hoặc thông_báo cho khách trước khi gọi món . Làm_ăn có tâm thật đấy . Mọi người lưu_ý khi ăn_ở đây nhé .
