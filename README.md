@@ -16,7 +16,7 @@ In this task, I implemented the **LeNet** architecture to classify handwritten d
 - **Number of Epochs**: 20  
 
 📈 Below is a plot of training and validation performance after 20 epochs:  
-![Digit Recognition][Plots/Digit Recognition.png]
+![Digit Recognition](Plots/Digit Recognition.png)
 
 ---
 
