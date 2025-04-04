@@ -29,8 +29,13 @@ def loader(path):
 img_size = 150
 train_transforms = transforms.Compose([
     transforms.Resize((img_size, img_size)),
+    transforms.RandomHorizontalFlip(),
+    transforms.RandomRotation(15),
+    transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
     transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
+
 
 train_data = datasets.ImageFolder(root=data_path['train'], loader=loader, transform=train_transforms)
 valid_data = datasets.ImageFolder(root=data_path['valid'], transform=train_transforms)
@@ -129,6 +134,17 @@ def main():
     plt.ylim(0, 1)
     plt.savefig('Plots/Cassava Leaf Disease.png')
     plt.show()
+    
+def test():
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = LeNetClassifier2(num_classes=5).to(device)
+    model.load_state_dict(torch.load(os.path.join('./model', 'model2.pt')))
+    
+    test_dataloader = data.DataLoader(test_data, batch_size=BATCH_SIZE, shuffle=False)
+    criterion = nn.CrossEntropyLoss()
+    
+    test_acc, test_loss = evaluate(model, criterion, test_dataloader, device)
+    print(f"Test Loss: {test_loss:.4f} | Test Acc: {test_acc:.4f}")
     
 if __name__ == "__main__":
     main()

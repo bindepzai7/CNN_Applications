@@ -62,9 +62,32 @@ def run_digit_recognition():
         st.image(image)
         st.success(f"The image is of the digit {label} with {p:.2f} % probability.")
         
+def cassava_inference(image, model):
+    img_transform = transforms.Compose([
+        transforms.Resize((150, 150)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], 
+                             [0.229, 0.224, 0.225])
+    ])
+    img_tensor = img_transform(image.convert("RGB")).unsqueeze(0)
+    with torch.no_grad():
+        predictions = model(img_tensor)
+    probs = F.softmax(predictions, dim=1)
+    p_max, yhat = torch.max(probs, dim=1)
+    return p_max.item() * 100, yhat.item()
+        
 def run_cassava_leaf_disease():
     st.title('Cassava Leaf Disease Classification')
     st.subheader('Model: LeNet | Dataset: Cassava Leaf Disease')
+
+    cassava_model = load_model('model/model2.pt', num_classes=5, architecture='LeNet2')  # replace with correct arch
+    cassava_classes = {
+        0: "Cassava Bacterial Blight (CBB)",
+        1: "Cassava Brown Streak Disease (CBSD)",
+        2: "Cassava Green Mottle (CGM)",
+        3: "Cassava Mosaic Disease (CMD)",
+        4: "Healthy"
+    }
 
     option = st.selectbox('How would you like to give the input?', ('Upload Image File', 'Run Example Image'))
 
@@ -72,15 +95,15 @@ def run_cassava_leaf_disease():
         file = st.file_uploader("Please upload an image of a cassava leaf", type=["jpg", "png"])
         if file is not None:
             image = Image.open(file)
-            p, label = inference(image, model)
+            p, label = cassava_inference(image, cassava_model)
             st.image(image)
-            st.success(f"The uploaded image is of the cassava leaf with {p:.2f} % probability.") 
+            st.success(f"The uploaded leaf is classified as **{cassava_classes[label]}** with {p:.2f}% confidence.") 
 
     elif option == "Run Example Image":
         image = Image.open('data/Demo/demo_cbb.jpg')
-        p, label = inference(image, model)
+        p, label = cassava_inference(image, cassava_model)
         st.image(image)
-        st.success(f"The image is of the cassava leaf with {p:.2f} % probability.")
+        st.success(f"The example image is classified as **{cassava_classes[label]}** with {p:.2f}% confidence.")
 
 
 def main():
