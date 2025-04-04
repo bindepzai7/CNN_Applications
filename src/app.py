@@ -129,7 +129,8 @@ def run_cassava_leaf_disease():
 tokenizer = get_tokenizer("basic_english")
 idx2label = {0: 'negative', 1:'positive'}
 
-vocabulary = torch.load('./model/vocabulary.pth', map_location=torch.device('cpu'))
+with open('./model/vocabulary.pth', 'rb') as f:
+    vocabulary = pickle.load(f)
 def sentiment_inference(sentence, vocabulary, model):
     sentence = preprocess_text(sentence)
     encoded_sentence = vocabulary(tokenizer(sentence))
