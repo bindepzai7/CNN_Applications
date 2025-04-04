@@ -4,3 +4,4 @@ torch==2.2.1
 torchvision
 matplotlib
 torchsummary
+torchtext
