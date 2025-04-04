@@ -1,5 +1,6 @@
 from torch import nn
 import torch
+import json
 import time
 
 def train(model, optimizer, criterion, train_dataloader, device, epoch=0, log_interval=50):
@@ -68,3 +69,16 @@ def evaluate(model, criterion, valid_dataloader, device):
     epoch_acc = total_acc / total_count
     epoch_loss = sum(losses) / len(losses)
     return epoch_acc, epoch_loss
+
+#save results to a JSON file
+def save_results(train_accs, train_losses, eval_accs, eval_losses, file_name):
+    results = {
+        'train_accs': train_accs,
+        'train_losses': train_losses,
+        'eval_accs': eval_accs,
+        'eval_losses': eval_losses
+    }
+    with open(file_name, 'w') as f:
+        json.dump(results, f, indent=4)
+    print(f"Results saved to {file_name}")
+    

@@ -13,7 +13,7 @@ import torch.utils.data as data
 from matplotlib import pyplot as plt
 from PIL import Image
 
-from training import train, evaluate
+from training import train, evaluate, save_results
 import time
 
 
@@ -116,8 +116,13 @@ def main():
         print("| Valid Acc: {:8.3f} | Valid Loss: {:8.3f}".format(eval_acc, eval_loss))
         print("-" * 59)
     
-    lenet_model.load_state_dict(torch.load(os.path.join(save_model, 'lenet_model.pt')))
+    lenet_model.load_state_dict(torch.load(os.path.join(save_model, 'model1.pt')))
     lenet_model.eval()
+    save_model = './results/Digit Recognition'
+    file_name = os.path.join(save_model, 'result.json')
+    os.makedirs(os.path.dirname(file_name), exist_ok=True)
+    #save results to a JSON file
+    save_results(train_accs, train_losses, eval_accs, eval_losses, file_name)
     print("Best model loaded.")
     
 if __name__ == "__main__":
