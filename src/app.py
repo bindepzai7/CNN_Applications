@@ -7,7 +7,8 @@ st.set_page_config(page_title="CNN Applications", layout="wide")
 
 from PIL import Image
 import torchvision.transforms as transforms
-from lenet_digit_recognition import LeNetClassifier1, LeNetClassifier2
+from lenet_digit_recognition import LeNetClassifier1
+from lenet_leaf_disease import LeNetClassifier2
 
 @st.cache_resource
 def load_model(model_path, num_classes, architecture):
