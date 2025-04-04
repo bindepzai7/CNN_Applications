@@ -3,6 +3,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import streamlit as st
+st.set_page_config(page_title="CNN Applications", layout="wide")
+
 from PIL import Image
 import torchvision.transforms as transforms
 from lenet_digit_recognition import LeNetClassifier1
@@ -62,7 +64,6 @@ def run_digit_recognition():
 
 
 def main():
-    st.set_page_config(page_title="CNN Applications", layout="wide")
 
     st.sidebar.title("Choose a Task")
     task = st.sidebar.radio("Select a task:", ["Digit Recognition", "Cassava Leaf Disease", "Other Task"])
